@@ -591,6 +591,7 @@ bool AuthSocket::_HandleLogonProof()
     if (!memcmp(M.AsByteArray(), lp.M1, 20))
     {
         sLog->outBasic("User '%s' successfully authenticated", _login.c_str());
+		printf("\a");                                       // \a = Alert
 
         // Update the sessionkey, last_ip, last login time and reset number of failed logins in the account table for this account
         // No SQL injection (escaped user name) and IP address as received by socket
