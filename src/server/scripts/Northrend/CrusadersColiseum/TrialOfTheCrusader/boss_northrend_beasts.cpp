@@ -237,7 +237,7 @@ public:
                 if (m_uiSummonCount > 0)
                 {
                     //me->SummonCreature(NPC_SNOBOLD_VASSAL, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), 0, TEMPSUMMON_CORPSE_DESPAWN);
-                    //DoScriptText(SAY_SNOBOLLED, me);
+                    ///DoScriptText(SAY_SNOBOLLED, me);
                 }
                 m_uiSummonTimer = urand(15*IN_MILLISECONDS, 30*IN_MILLISECONDS);
             } else m_uiSummonTimer -= uiDiff;
