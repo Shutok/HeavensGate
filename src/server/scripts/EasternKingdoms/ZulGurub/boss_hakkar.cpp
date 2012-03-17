@@ -142,7 +142,8 @@ class boss_hakkar : public CreatureScript
                 if (WillOfHakkar_Timer <= diff)
                 {
                     if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 0))
-                        DoCast(target, SPELL_WILLOFHAKKAR);
+					{}
+                        ///////////DoCast(target, SPELL_WILLOFHAKKAR);
 
                     WillOfHakkar_Timer = urand(25000, 35000);
                 } else WillOfHakkar_Timer -= diff;

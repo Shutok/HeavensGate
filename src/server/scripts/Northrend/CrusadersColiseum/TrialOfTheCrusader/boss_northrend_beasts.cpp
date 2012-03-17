@@ -236,8 +236,8 @@ public:
             {
                 if (m_uiSummonCount > 0)
                 {
-                    me->SummonCreature(NPC_SNOBOLD_VASSAL, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), 0, TEMPSUMMON_CORPSE_DESPAWN);
-                    DoScriptText(SAY_SNOBOLLED, me);
+                    //me->SummonCreature(NPC_SNOBOLD_VASSAL, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), 0, TEMPSUMMON_CORPSE_DESPAWN);
+                    //DoScriptText(SAY_SNOBOLLED, me);
                 }
                 m_uiSummonTimer = urand(15*IN_MILLISECONDS, 30*IN_MILLISECONDS);
             } else m_uiSummonTimer -= uiDiff;
@@ -263,7 +263,7 @@ public:
         mob_snobold_vassalAI(Creature* creature) : ScriptedAI(creature)
         {
             m_instance = (InstanceScript*)creature->GetInstanceScript();
-            if (m_instance)
+			if (m_instance)
                 m_instance->SetData(DATA_SNOBOLD_COUNT, INCREASE);
         }
 
@@ -282,7 +282,7 @@ public:
             m_uiHeadCrackTimer = 25000;
 
             m_uiTargetGUID = 0;
-            m_bTargetDied = false;
+            m_bTargetDied = true;
             if (m_instance)
                 m_uiBossGUID = m_instance->GetData64(NPC_GORMOK);
             //Workaround for Snobold
@@ -321,7 +321,7 @@ public:
             }
         }
 
-        void JustDied(Unit* /*killer*/)
+       void JustDied(Unit* /*killer*/)
         {
             if (Unit* target = Unit::GetPlayer(*me, m_uiTargetGUID))
                 if (target->isAlive())
