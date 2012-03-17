@@ -122,8 +122,8 @@ public:
         {
             if (DespawnTimer <= diff)
             {
-                if (!UpdateVictim())
-                    me->DespawnOrUnsummon();
+                /*if (!UpdateVictim())
+                    me->DespawnOrUnsummon();*/
                 DespawnTimer = 5000;
             } else DespawnTimer -= diff;
 

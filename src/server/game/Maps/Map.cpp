@@ -2374,8 +2374,88 @@ bool InstanceMap::AddPlayerToMap(Player* player)
                 if (uint32 dungeonId = sLFGMgr->GetDungeon(group->GetGUID(), true))
                     if (LFGDungeonEntry const* dungeon = sLFGDungeonStore.LookupEntry(dungeonId))
                         if (LFGDungeonEntry const* randomDungeon = sLFGDungeonStore.LookupEntry(*(sLFGMgr->GetSelectedDungeons(player->GetGUID()).begin())))
-                            if (dungeon->map == GetId() && dungeon->difficulty == GetDifficulty() && randomDungeon->type == LFG_TYPE_RANDOM)
+							if (dungeon->map == GetId() && dungeon->difficulty == GetDifficulty() && randomDungeon->type == LFG_TYPE_RANDOM) {
                                 player->CastSpell(player, LFG_SPELL_LUCK_OF_THE_DRAW, true);
+								uint8 did = 0;
+		if (player->GetMapId() == 43) {
+		did = 23;
+	} else if (player->GetMapId() == 289) {
+		did = 61;
+	} else if (player->GetMapId() == 389) {
+		did = 19;
+	} else if (player->GetMapId() == 36) {
+		did = 23;
+	} else if (player->GetMapId() == 33) {
+		did = 24;
+	} else if (player->GetMapId() == 48) {
+		did = 26;
+	} else if (player->GetMapId() == 34) {
+		did = 28;
+		} else if (player->GetMapId() == 47) {
+		did = 30;
+		} else if (player->GetMapId() == 189) {
+		did = 35;
+		} else if (player->GetMapId() == 129) {
+		did = 38;
+		} else if (player->GetMapId() == 70) {
+		did = 38;
+		} else if (player->GetMapId() == 209) {
+		did = 48;
+		} else if (player->GetMapId() == 349) {
+		did = 48;
+		} else if (player->GetMapId() == 109) {
+		did = 49;
+		} else if (player->GetMapId() == 230) {
+		did = 56;
+		} else if (player->GetMapId() == 229) {
+		did = 60;
+		} else if (player->GetMapId() == 429) {
+		did = 60;
+		} else if (player->GetMapId() == 329) {
+		did = 61;
+		} else if (player->GetMapId() == 543) {
+		did = 63;
+		} else if (player->GetMapId() == 542) {
+		did = 63;
+		} else if (player->GetMapId() == 540) {
+		did = 72;
+		} else if (player->GetMapId() == 547) {
+		did = 65;
+		} else if (player->GetMapId() == 546) {
+		did = 66;
+		} else if (player->GetMapId() == 545) {
+		did = 71;
+		} else if (player->GetMapId() == 557) {
+		did = 67;
+		} else if (player->GetMapId() == 558) {
+		did = 68;
+		} else if (player->GetMapId() == 556) {
+		did = 69;
+		} else if (player->GetMapId() == 555) {
+		did = 71;
+		} else if (player->GetMapId() == 560) {
+		did = 69;
+		} else if (player->GetMapId() == 269) {
+		did = 71;
+		} else if (player->GetMapId() == 554) {
+		did = 71;
+		} else if (player->GetMapId() == 553) {
+		did = 71;
+		} else if (player->GetMapId() == 552) {
+		did = 71;
+		} else if (player->GetMapId() == 585) {
+		did = 71;
+		} else if (player->GetMapId() == 90) {
+		did = 29;
+	} else {
+		did = 80;
+	}
+		if (player->getLevel() > did) {
+		} else {
+		player->CastSpell(player, 91084, true);
+                                //player->CastSpell(player, LFG_SPELL_DUNGEON_COOLDOWN, true);
+		}
+}
         }
 
         // for normal instances cancel the reset schedule when the

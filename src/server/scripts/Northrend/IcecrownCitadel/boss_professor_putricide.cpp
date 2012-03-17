@@ -364,11 +364,11 @@ class boss_professor_putricide : public CreatureScript
                 switch (action)
                 {
                     case ACTION_FESTERGUT_COMBAT:
-                        SetPhase(PHASE_FESTERGUT);
-                        me->SetSpeed(MOVE_RUN, _baseSpeed*2.0f, true);
+                        //SetPhase(PHASE_FESTERGUT);
+                        //me->SetSpeed(MOVE_RUN, _baseSpeed*2.0f, true);
                         me->GetMotionMaster()->MovePoint(POINT_FESTERGUT, festergutWatchPos);
-                        me->SetReactState(REACT_PASSIVE);
-                        DoZoneInCombat(me);
+                        //me->SetReactState(REACT_PASSIVE);
+                        //DoZoneInCombat(me);
                         if (IsHeroic())
                             events.ScheduleEvent(EVENT_FESTERGUT_GOO, urand(15000, 20000), 0, PHASE_FESTERGUT);
                         break;
@@ -381,12 +381,12 @@ class boss_professor_putricide : public CreatureScript
                         break;
                     case ACTION_ROTFACE_COMBAT:
                     {
-                        SetPhase(PHASE_ROTFACE);
-                        me->SetSpeed(MOVE_RUN, _baseSpeed*2.0f, true);
+                        //SetPhase(PHASE_ROTFACE);
+                        //me->SetSpeed(MOVE_RUN, _baseSpeed*2.0f, true);
                         me->GetMotionMaster()->MovePoint(POINT_ROTFACE, rotfaceWatchPos);
-                        me->SetReactState(REACT_PASSIVE);
-                        _oozeFloodStage = 0;
-                        DoZoneInCombat(me);
+                        //me->SetReactState(REACT_PASSIVE);
+                        //_oozeFloodStage = 0;
+                        //DoZoneInCombat(me);
                         if (IsHeroic())
                             events.ScheduleEvent(EVENT_ROTFACE_VILE_GAS, urand(15000, 20000), 0, PHASE_ROTFACE);
                         // init random sequence of floods

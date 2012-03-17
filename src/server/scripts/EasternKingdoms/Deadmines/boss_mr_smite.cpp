@@ -34,7 +34,9 @@ enum eSpels
     EQUIP_SWORD             = 5191,
     EQUIP_MACE              = 7230,
 
-    SAY_AGGRO               = -1036001
+    SAY_AGGRO               = -1036001,
+	SAY_PHASE_2               = -1999926,
+	SAY_PHASE_3               = -1999927
 };
 
 class boss_mr_smite : public CreatureScript
@@ -146,10 +148,13 @@ public:
                             uiPhase = 2;
                             break;
                         case 2:
-                            if (uiHealth == 1)
+                            if (uiHealth == 1) {
+								DoScriptText(SAY_PHASE_2, me);
                                 SetEquipmentSlots(false, EQUIP_SWORD, EQUIP_SWORD, EQUIP_NO_CHANGE);
-                            else
+							}else{
+								DoScriptText(SAY_PHASE_3, me);
                                 SetEquipmentSlots(false, EQUIP_MACE, EQUIP_UNEQUIP, EQUIP_NO_CHANGE);
+							}
                             uiTimer = 500;
                             uiPhase = 3;
                             break;

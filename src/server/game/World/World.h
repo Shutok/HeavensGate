@@ -378,6 +378,8 @@ enum Rates
     RATE_DURABILITY_LOSS_ABSORB,
     RATE_DURABILITY_LOSS_BLOCK,
     RATE_MOVESPEED,
+	DungeonFinder_minplayer,
+	DungeonFinder_party_minplayer,
     MAX_RATES
 };
 

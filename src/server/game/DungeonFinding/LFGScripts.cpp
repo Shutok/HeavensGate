@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -80,21 +80,25 @@ void LFGScripts::OnRemoveMember(Group* group, uint64 guid, RemoveMethod method, 
         sLFGMgr->InitBoot(group, kicker, guid, str_reason);
         return;
     }
-
+	uint8 did = 0;
     sLFGMgr->ClearState(guid);
     sLFGMgr->SetState(guid, LFG_STATE_NONE);
     if (Player* player = ObjectAccessor::FindPlayer(guid))
     {
-        /*
-        if (method == GROUP_REMOVEMETHOD_LEAVE)
+		LfgState state = sLFGMgr->GetState(gguid);
+        if (state == LFG_STATE_DUNGEON)
+				if (player->HasAura(91084)){
+			player->CastSpell(player, 71041, true);
+			player->RemoveAurasDueToSpell(91084);
+				} else {
+					player->RemoveAurasDueToSpell(91084);
+				}
             // Add deserter flag
-        else if (group->isLfgKickActive())
+        //else if (group->isLfgKickActive())
             // Update internal kick cooldown of kicked
-        */
-
         LfgUpdateData updateData = LfgUpdateData(LFG_UPDATETYPE_LEADER);
         player->GetSession()->SendLfgUpdateParty(updateData);
-        if (player->GetMap()->IsDungeon())                    // Teleport player out the dungeon
+        //if (player->GetMap()->IsDungeon())                    // Teleport player out the dungeon
             sLFGMgr->TeleportPlayer(player, true);
     }
 

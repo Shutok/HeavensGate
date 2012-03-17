@@ -497,10 +497,11 @@ inline void KillRewarder::_RewardXP(Player* player, float rate)
         //        * set to 0 if player's level is more than maximum level of not gray member;
         //        * cut XP in half if _isFullXP is false.
         if (_maxNotGrayMember && player->isAlive() &&
-            _maxNotGrayMember->getLevel() >= player->getLevel())
+            _maxNotGrayMember->getLevel() >= player->getLevel()) 
             xp = _isFullXP ?
                 uint32(xp * rate) :             // Reward FULL XP if all group members are not gray.
-                uint32(xp * rate / 2) + 1;      // Reward only HALF of XP if some of group members are gray.
+                //uint32(xp * rate / 2) + 1;      // Reward only HALF of XP if some of group members are gray.
+				uint32(xp * rate) ;      // Reward FULL XP if all group members are not gray.
         else
             xp = 0;
     }
@@ -550,7 +551,8 @@ void KillRewarder::_RewardPlayer(Player* player, bool isDungeon)
     if (!_isPvP || _isBattleGround)
     {
         const float rate = _group ?
-            _groupRate * float(player->getLevel()) / _sumLevel : // Group rate depends on summary level.
+			1.0f : // 组队也获得100%的经验值加成.
+            //_groupRate * float(player->getLevel()) / _sumLevel : // Group rate depends on summary level.
             1.0f;                                                // Personal rate is 100%.
         if (_xp)
             // 4.2. Give XP.
@@ -20653,16 +20655,22 @@ void Player::UpdateHomebindTime(uint32 time)
     {
         if (time >= m_HomebindTimer)
         {
-            // teleport to nearest graveyard
-            RepopAtGraveyard();
-        }
+			if (this->HasAura(91084)){
+				this->CastSpell(this, 71041, true);
+				this->RemoveAurasDueToSpell(91084);
+				sLFGMgr->TeleportPlayer(this, true, true);
+			} else {
+			sLFGMgr->TeleportPlayer(this, true, true);
+			this->RemoveAurasDueToSpell(91084);
+			}
+			}
         else
             m_HomebindTimer -= time;
     }
     else
     {
         // instance is invalid, start homebind timer
-        m_HomebindTimer = 60000;
+        m_HomebindTimer = 1;
         // send message to player
         WorldPacket data(SMSG_RAID_GROUP_ONLY, 4+4);
         data << uint32(m_HomebindTimer);

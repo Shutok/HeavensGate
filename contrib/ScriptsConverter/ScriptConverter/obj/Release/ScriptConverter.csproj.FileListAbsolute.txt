@@ -1,0 +1,5 @@
+E:\trinity_mmaps\contrib\ScriptsConverter\ScriptConverter\bin\Release\ScriptConverter.exe
+E:\trinity_mmaps\contrib\ScriptsConverter\ScriptConverter\bin\Release\ScriptConverter.pdb
+E:\trinity_mmaps\contrib\ScriptsConverter\ScriptConverter\obj\Release\ResolveAssemblyReference.cache
+E:\trinity_mmaps\contrib\ScriptsConverter\ScriptConverter\obj\Release\ScriptConverter.exe
+E:\trinity_mmaps\contrib\ScriptsConverter\ScriptConverter\obj\Release\ScriptConverter.pdb

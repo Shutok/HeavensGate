@@ -500,6 +500,18 @@ void World::LoadConfigSettings(bool reload)
     rate_values[RATE_MINING_AMOUNT] = ConfigMgr::GetFloatDefault("Rate.Mining.Amount", 1.0f);
     rate_values[RATE_MINING_NEXT]   = ConfigMgr::GetFloatDefault("Rate.Mining.Next", 1.0f);
     rate_values[RATE_INSTANCE_RESET_TIME] = ConfigMgr::GetFloatDefault("Rate.InstanceResetTime", 1.0f);
+	rate_values[DungeonFinder_party_minplayer] = ConfigMgr::GetFloatDefault("DungeonFinder.party.minplayer", 5.0f);
+	if (rate_values[DungeonFinder_party_minplayer] < 2)
+    {
+        sLog->outError("DungeonFinder.party.minplayer (%f) must be > 1. Using 5 instead.", rate_values[DungeonFinder_party_minplayer]);
+        rate_values[DungeonFinder_party_minplayer] = 5.0f;
+    }
+	rate_values[DungeonFinder_minplayer] = ConfigMgr::GetFloatDefault("DungeonFinder.minplayer", 5.0f);
+	if (rate_values[DungeonFinder_minplayer] < 2)
+    {
+        sLog->outError("DungeonFinder.minplayer (%f) must be > 1. Using 5 instead.", rate_values[DungeonFinder_minplayer]);
+        rate_values[DungeonFinder_minplayer] = 5.0f;
+    }
     rate_values[RATE_TALENT] = ConfigMgr::GetFloatDefault("Rate.Talent", 1.0f);
     if (rate_values[RATE_TALENT] < 0.0f)
     {

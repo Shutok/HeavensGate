@@ -216,7 +216,7 @@ void Group::LoadMemberFromDB(uint32 guidLow, uint8 memberFlags, uint8 subgroup, 
 void Group::ConvertToLFG()
 {
     m_groupType = GroupType(m_groupType | GROUPTYPE_LFG | GROUPTYPE_UNK1);
-    m_lootMethod = NEED_BEFORE_GREED;
+    m_lootMethod = GROUP_LOOT;
     if (!isBGGroup())
     {
         PreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_UPDATE_GROUP_TYPE);

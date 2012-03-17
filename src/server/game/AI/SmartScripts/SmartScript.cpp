@@ -3001,7 +3001,6 @@ void SmartScript::SetScript9(SmartScriptHolder& e, uint32 entry)
             i->event.type = SMART_EVENT_UPDATE_IC;
         else if (e.action.timedActionList.timerType > 1)
             i->event.type = SMART_EVENT_UPDATE;
-        mResumeActionList = e.action.timedActionList.dontResume ? false : true;
         InitTimer((*i));
     }
 }

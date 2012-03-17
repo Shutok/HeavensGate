@@ -26,7 +26,7 @@ EndScriptData
 
 #include "ScriptPCH.h"
 
-#define GOSSIP_SUSURRUS         "I am ready."
+#define GOSSIP_SUSURRUS         "我准备好了."
 #define GOSSIP_NETHER_DRAKE     "I'm ready to fly! Take me up, dragon!"
 #define GOSSIP_BRAZEN           "I am ready to go to Durnholde Keep."
 #define GOSSIP_IRONWING         "I'd like to take a flight around Stormwind Harbor."

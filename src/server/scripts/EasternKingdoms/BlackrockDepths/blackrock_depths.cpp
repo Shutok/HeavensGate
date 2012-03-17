@@ -410,16 +410,16 @@ enum KharamQuests
     QUEST_4342                          = 4342
 };
 
-#define GOSSIP_ITEM_KHARAN_1    "I need to know where the princess are, Kharan!"
-#define GOSSIP_ITEM_KHARAN_2    "All is not lost, Kharan!"
-#define GOSSIP_ITEM_KHARAN_3    "Gor'shak is my friend, you can trust me."
-#define GOSSIP_ITEM_KHARAN_4    "Not enough, you need to tell me more."
-#define GOSSIP_ITEM_KHARAN_5    "So what happened?"
-#define GOSSIP_ITEM_KHARAN_6    "Continue..."
-#define GOSSIP_ITEM_KHARAN_7    "So you suspect that someone on the inside was involved? That they were tipped off?"
-#define GOSSIP_ITEM_KHARAN_8    "Continue with your story please."
-#define GOSSIP_ITEM_KHARAN_9    "Indeed."
-#define GOSSIP_ITEM_KHARAN_10   "The door is open, Kharan. You are a free man."
+#define GOSSIP_ITEM_KHARAN_1    "我要知道公主在哪里!卡兰!"
+#define GOSSIP_ITEM_KHARAN_2    "并非失去了一切,卡兰."
+#define GOSSIP_ITEM_KHARAN_3    "哥沙克是我的朋友,你可以相信我."
+#define GOSSIP_ITEM_KHARAN_4    "还不够,你需要告诉我更多!"
+#define GOSSIP_ITEM_KHARAN_5    "发生了什么事?"
+#define GOSSIP_ITEM_KHARAN_6    "继续..."
+#define GOSSIP_ITEM_KHARAN_7    "所以,你怀疑有人在里面参与?他们通风报信?"
+#define GOSSIP_ITEM_KHARAN_8    "继续你的故事吧."
+#define GOSSIP_ITEM_KHARAN_9    "确实."
+#define GOSSIP_ITEM_KHARAN_10   "大门是敞开的,卡兰,你是一个自由人."
 
 class npc_kharan_mighthammer : public CreatureScript
 {
@@ -512,8 +512,8 @@ enum LokhtosSpells
     SPELL_CREATE_THORIUM_BROTHERHOOD_CONTRACT_DND          = 23059
 };
 
-#define GOSSIP_ITEM_SHOW_ACCESS     "Show me what I have access to, Lothos."
-#define GOSSIP_ITEM_GET_CONTRACT    "Get Thorium Brotherhood Contract"
+#define GOSSIP_ITEM_SHOW_ACCESS     "我有机会,洛索斯."
+#define GOSSIP_ITEM_GET_CONTRACT    "获得瑟银兄弟会契约."
 
 class npc_lokhtos_darkbargainer : public CreatureScript
 {
@@ -565,8 +565,8 @@ enum DughalQuests
 };
 
 // DELETE THIS IF IT IS NOT NEEDED!
-#define SAY_DUGHAL_FREE         "Thank you, $N! I'm free!!!"
-#define GOSSIP_DUGHAL           "You're free, Dughal! Get out of here!"
+#define SAY_DUGHAL_FREE         "感谢你, $N!我自由了!!!"
+#define GOSSIP_DUGHAL           "你自由了, 离开这里吧!"
 
 /*
 class npc_dughal_stormwing : public CreatureScript

@@ -161,7 +161,7 @@ void WorldSession::HandleLfgPlayerLockInfoRequestOpcode(WorldPacket& /*recv_data
     uint8 expansion = GetPlayer()->GetSession()->Expansion();
     for (uint32 i = 0; i < sLFGDungeonStore.GetNumRows(); ++i)
     {
-        LFGDungeonEntry const* dungeon = sLFGDungeonStore.LookupEntry(i);
+		LFGDungeonEntry const* dungeon = sLFGDungeonStore.LookupEntry(i);
         if (dungeon && dungeon->type == LFG_TYPE_RANDOM && dungeon->expansion <= expansion &&
             dungeon->minlevel <= level && level <= dungeon->maxlevel)
             randomDungeons.insert(dungeon->Entry());
@@ -192,6 +192,9 @@ void WorldSession::HandleLfgPlayerLockInfoRequestOpcode(WorldPacket& /*recv_data
                     qRew = sObjectMgr->GetQuestTemplate(reward->reward[1].questId);
             }
         }
+        for (uint32 i = 0; i < sLFGDungeonStore.GetNumRows(); ++i)
+    {
+      LFGDungeonEntry const* dungeon = sLFGDungeonStore.LookupEntry(i);
         if (qRew)
         {
             data << uint8(done);
@@ -226,6 +229,8 @@ void WorldSession::HandleLfgPlayerLockInfoRequestOpcode(WorldPacket& /*recv_data
             data << uint8(0);
         }
     }
+}
+	//隐蔽可取消锁定低级副本
     BuildPlayerLockDungeonBlock(data, lock);
     SendPacket(&data);
 }

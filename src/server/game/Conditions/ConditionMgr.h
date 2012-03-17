@@ -59,7 +59,15 @@ enum ConditionType
     CONDITION_QUEST_COMPLETE        = 28,                   // quest_id         0           +referenceID       true if player has quest_id with all objectives complete, but not yet rewarded
     CONDITION_NEAR_CREATURE         = 29,                   // creature entry   distance    +referenceID       true if there is a creature of entry in range
     CONDITION_NEAR_GAMEOBJECT       = 30,                   // gameobject entry distance    +referenceID       true if there is a gameobject of entry in range
-    CONDITION_MAX                   = 31                    // MAX
+    CONDITION_OBJECT_ENTRY          = 31,                   // TypeID           entry          0                  true if object is type TypeID and the entry is 0 or matches entry of the object
+    CONDITION_TYPE_MASK             = 32,                   // TypeMask         0              0                  true if object is type object's TypeMask matches provided TypeMask
+    CONDITION_RELATION_TO           = 33,                   // ConditionTarget  RelationType   0                  true if object is in given relation with object specified by ConditionTarget
+    CONDITION_REACTION_TO           = 34,                   // ConditionTarget  rankMask       0                  true if object's reaction matches rankMask object specified by ConditionTarget
+    CONDITION_DISTANCE_TO           = 35,                   // ConditionTarget  distance       ComparisonType     true if object and ConditionTarget are within distance given by parameters
+    CONDITION_ALIVE                 = 36,                   // 0                0              0                  true if unit is alive
+    CONDITION_HP_VAL                = 37,                   // hpVal            ComparisonType 0                  true if unit's hp matches given value
+    CONDITION_HP_PCT                = 38,                   // hpPct            ComparisonType 0                  true if unit's hp matches given pct
+    CONDITION_MAX                   = 39                    // MAX
 };
 
 enum LevelConditionType
@@ -96,7 +104,8 @@ enum ConditionSourceType
     CONDITION_SOURCE_TYPE_QUEST_ACCEPT                   = 19, //DONE
     CONDITION_SOURCE_TYPE_QUEST_SHOW_MARK                = 20, //DONE
     CONDITION_SOURCE_TYPE_VEHICLE_SPELL                  = 21, //DONE
-    CONDITION_SOURCE_TYPE_MAX                            = 22//MAX
+    CONDITION_SOURCE_TYPE_SMART_EVENT                    = 22,
+    CONDITION_SOURCE_TYPE_MAX                            = 23  //MAX
 };
 
 struct Condition
@@ -104,6 +113,7 @@ struct Condition
     ConditionSourceType     mSourceType;        //SourceTypeOrReferenceId
     uint32                  mSourceGroup;
     uint32                  mSourceEntry;
+    uint32                  SourceId;          // So far, only used in CONDITION_SOURCE_TYPE_SMART_EVENT
     uint32                  mElseGroup;
     ConditionType           mConditionType;     //ConditionTypeOrReference
     uint32                  mConditionValue1;
@@ -112,6 +122,8 @@ struct Condition
     uint32                  ErrorTextd;
     uint32                  mReferenceId;
     uint32                  mScriptId;
+    uint8                   ConditionTarget;
+    bool                    NegativeCondition;
 
     Condition()
     {
@@ -120,12 +132,14 @@ struct Condition
         mSourceEntry        = 0;
         mElseGroup          = 0;
         mConditionType      = CONDITION_NONE;
+        ConditionTarget    = 0;
         mConditionValue1    = 0;
         mConditionValue2    = 0;
         mConditionValue3    = 0;
         mReferenceId        = 0;
         ErrorTextd          = 0;
         mScriptId           = 0;
+        NegativeCondition  = false;
     }
 
     bool Meets(Player* player, Unit* invoker = NULL);
@@ -133,9 +147,12 @@ struct Condition
 };
 
 typedef std::list<Condition*> ConditionList;
+typedef std::map<uint32, ConditionList> ConditionTypeContainer;
 typedef std::map<uint32, ConditionList> ConditionTypeMap;
+typedef std::map<uint32, ConditionTypeContainer> VehicleSpellConditionContainer;
 typedef std::map<ConditionSourceType, ConditionTypeMap> ConditionMap;
 typedef std::map<uint32, ConditionTypeMap> VehicleSpellConditionMap;
+typedef std::map<std::pair<int32, uint32 /*SAI source_type*/>, ConditionTypeContainer> SmartEventConditionContainer;
 
 typedef std::map<uint32, ConditionList> ConditionReferenceMap;//only used for references
 
@@ -179,7 +196,8 @@ class ConditionMgr
                     sourceType == CONDITION_SOURCE_TYPE_SPELL_LOOT_TEMPLATE ||
                     sourceType == CONDITION_SOURCE_TYPE_GOSSIP_MENU ||
                     sourceType == CONDITION_SOURCE_TYPE_GOSSIP_MENU_OPTION ||
-                    sourceType == CONDITION_SOURCE_TYPE_VEHICLE_SPELL);
+                    sourceType == CONDITION_SOURCE_TYPE_VEHICLE_SPELL ||
+                    sourceType == CONDITION_SOURCE_TYPE_SMART_EVENT);
         }
 
         void Clean(); // free up resources
@@ -187,6 +205,8 @@ class ConditionMgr
 
         ConditionMap                m_ConditionMap;
         ConditionReferenceMap       m_ConditionReferenceMap;
+		VehicleSpellConditionContainer    VehicleSpellConditionStore;
+		SmartEventConditionContainer      SmartEventConditionStore;
         VehicleSpellConditionMap    m_VehicleSpellConditions;
 };
 

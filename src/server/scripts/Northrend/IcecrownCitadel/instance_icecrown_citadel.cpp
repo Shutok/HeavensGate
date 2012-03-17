@@ -274,19 +274,15 @@ class instance_icecrown_citadel : public InstanceMapScript
                     case NPC_GREEN_DRAGON_COMBAT_TRIGGER:
                         ValithriaTriggerGUID = creature->GetGUID();
                         break;
-                    case NPC_SINDRAGOSA:
+                    /*case NPC_SINDRAGOSA:
                         SindragosaGUID = creature->GetGUID();
                         break;
                     case NPC_SPINESTALKER:
                         SpinestalkerGUID = creature->GetGUID();
-                        if (!creature->isDead())
-                            ++FrostwyrmCount;
                         break;
                     case NPC_RIMEFANG:
                         RimefangGUID = creature->GetGUID();
-                        if (!creature->isDead())
-                            ++FrostwyrmCount;
-                        break;
+                        break;*/
                     case NPC_THE_LICH_KING:
                         TheLichKingGUID = creature->GetGUID();
                         break;
@@ -335,8 +331,12 @@ class instance_icecrown_citadel : public InstanceMapScript
                 return entry;
             }
 
-            void OnCreatureDeath(Creature* creature)
+            void OnUnitDeath(Unit* unit)
             {
+                Creature* creature = unit->ToCreature();
+                if (!creature)
+                    return;
+
                 switch (creature->GetEntry())
                 {
                     case NPC_YMIRJAR_BATTLE_MAIDEN:

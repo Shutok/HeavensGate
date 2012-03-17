@@ -468,76 +468,95 @@ void ConditionMgr::LoadConditions(bool isReload)
         }
         else if (cond->mSourceGroup)
         {
-            bool bIsDone = false;
+            bool valid = false;
             //handle grouped conditions
             switch (cond->mSourceType)
             {
                 case CONDITION_SOURCE_TYPE_CREATURE_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Creature.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Creature.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_DISENCHANT_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Disenchant.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Disenchant.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_FISHING_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Fishing.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Fishing.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_GAMEOBJECT_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Gameobject.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Gameobject.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_ITEM_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Item.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Item.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_MAIL_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Mail.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Mail.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_MILLING_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Milling.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Milling.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_PICKPOCKETING_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Pickpocketing.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Pickpocketing.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_PROSPECTING_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Prospecting.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Prospecting.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_REFERENCE_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Reference.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Reference.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_SKINNING_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Skinning.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Skinning.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_SPELL_LOOT_TEMPLATE:
-                    bIsDone = addToLootTemplate(cond, LootTemplates_Spell.GetLootForConditionFill(cond->mSourceGroup));
+                    valid = addToLootTemplate(cond, LootTemplates_Spell.GetLootForConditionFill(cond->mSourceGroup));
                     break;
                 case CONDITION_SOURCE_TYPE_GOSSIP_MENU:
-                    bIsDone = addToGossipMenus(cond);
+                    valid = addToGossipMenus(cond);
                     break;
                 case CONDITION_SOURCE_TYPE_GOSSIP_MENU_OPTION:
-                    bIsDone = addToGossipMenuItems(cond);
+                    valid = addToGossipMenuItems(cond);
                     break;
                 case CONDITION_SOURCE_TYPE_VEHICLE_SPELL:
                 {
                     //if no list for vehicle create one
-                    if (m_VehicleSpellConditions.find(cond->mSourceGroup) == m_VehicleSpellConditions.end())
+                    if (VehicleSpellConditionStore.find(cond->mSourceGroup) == VehicleSpellConditionStore.end())
                     {
-                        ConditionTypeMap cmap;
-                        m_VehicleSpellConditions[cond->mSourceGroup] = cmap;
+                        ConditionTypeContainer cmap;
+                        VehicleSpellConditionStore[cond->mSourceGroup] = cmap;
                     }
                     //if no list for vehicle's spell create one
-                    if (m_VehicleSpellConditions[cond->mSourceGroup].find(cond->mSourceEntry) == m_VehicleSpellConditions[cond->mSourceGroup].end())
+                    if (VehicleSpellConditionStore[cond->mSourceGroup].find(cond->mSourceEntry) == VehicleSpellConditionStore[cond->mSourceGroup].end())
                     {
                         ConditionList clist;
-                        m_VehicleSpellConditions[cond->mSourceGroup][cond->mSourceEntry] = clist;
+                        VehicleSpellConditionStore[cond->mSourceGroup][cond->mSourceEntry] = clist;
                     }
-                    m_VehicleSpellConditions[cond->mSourceGroup][cond->mSourceEntry].push_back(cond);
-                    bIsDone = true;
+                    VehicleSpellConditionStore[cond->mSourceGroup][cond->mSourceEntry].push_back(cond);
+                    valid = true;
                     ++count;
                     continue;   // do not add to m_AllocatedMemory to avoid double deleting
+                }
+                case CONDITION_SOURCE_TYPE_SMART_EVENT:
+                {
+                    // If the entry does not exist, create a new list
+                    std::pair<int32, uint32> key = std::make_pair(cond->mSourceEntry, cond->SourceId);
+                    if (SmartEventConditionStore.find(key) == SmartEventConditionStore.end())
+                    {
+                        ConditionTypeContainer cmap;
+                        SmartEventConditionStore[key] = cmap;
+                    }
+                    if (SmartEventConditionStore[key].find(cond->mSourceGroup) == SmartEventConditionStore[key].end())
+                    {
+                        ConditionList clist;
+                        SmartEventConditionStore[key][cond->mSourceGroup] = clist;
+                    }
+                    SmartEventConditionStore[key][cond->mSourceGroup].push_back(cond);
+                    valid = true;
+                    ++count;
+                    continue;
                 }
                 default:
                     break;
             }
 
-            if (!bIsDone)
+            if (!valid)
             {
                 sLog->outErrorDb("Not handled grouped condition, SourceGroup %u", cond->mSourceGroup);
                 delete cond;
@@ -1180,26 +1199,30 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond)
         }
         case CONDITION_CLASS:
         {
-            if (cond->mConditionValue1 >= MAX_CLASSES)
+            if (!(cond->mConditionValue1 & CLASSMASK_ALL_PLAYABLE))
             {
-                sLog->outErrorDb("Class condition has non existing class (%u), skipped", cond->mConditionValue1);
+                sLog->outErrorDb("Class condition has non existing classmask (%u), skipped", cond->mConditionValue1 & ~CLASSMASK_ALL_PLAYABLE);
                 return false;
             }
 
             if (cond->mConditionValue2)
                 sLog->outErrorDb("Class condition has useless data in value2 (%u)!", cond->mConditionValue2);
+            if (cond->mConditionValue3)
+                sLog->outErrorDb("Class condition has useless data in value3 (%u)!", cond->mConditionValue3);
             break;
         }
         case CONDITION_RACE:
         {
-            if (cond->mConditionValue1 >= MAX_RACES)
+            if (!(cond->mConditionValue1 & RACEMASK_ALL_PLAYABLE))
             {
-                sLog->outErrorDb("Race condition has non existing race (%u), skipped", cond->mConditionValue1);
+                sLog->outErrorDb("Race condition has non existing racemask (%u), skipped", cond->mConditionValue1 & ~RACEMASK_ALL_PLAYABLE);
                 return false;
             }
 
             if (cond->mConditionValue2)
                 sLog->outErrorDb("Race condition has useless data in value2 (%u)!", cond->mConditionValue2);
+            if (cond->mConditionValue3)
+                sLog->outErrorDb("Race condition has useless data in value3 (%u)!", cond->mConditionValue3);
             break;
         }
         case CONDITION_SPELL_SCRIPT_TARGET:

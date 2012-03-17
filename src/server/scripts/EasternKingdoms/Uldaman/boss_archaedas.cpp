@@ -29,16 +29,16 @@ EndScriptData */
 #include "ScriptPCH.h"
 #include "uldaman.h"
 
-#define SAY_AGGRO           "Who dares awaken Archaedas? Who dares the wrath of the makers!"
+#define SAY_AGGRO           "谁敢唤醒阿扎达斯?谁敢冒犯造物之神?"
 #define SOUND_AGGRO         5855
 
-#define SAY_SUMMON          "Awake ye servants, defend the discs!"
+#define SAY_SUMMON          "苏醒吧,我的奴仆,为保护圆盘而战!"
 #define SOUND_SUMMON        5856
 
-#define SAY_SUMMON2         "To my side, brothers. For the makers!"
+#define SAY_SUMMON2         "到我这来,兄弟们,为造物之神而战!"
 #define SOUND_SUMMON2       5857
 
-#define SAY_KILL            "Reckless mortal."
+#define SAY_KILL            "可笑的凡人."
 #define SOUND_KILL          5858
 
 enum eSpells

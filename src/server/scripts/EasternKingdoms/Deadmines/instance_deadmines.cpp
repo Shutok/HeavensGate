@@ -34,8 +34,8 @@ enum Sounds
     SOUND_MR_SMITE_ALARM2                                = 5777
 };
 
-#define SAY_MR_SMITE_ALARM1 "You there, check out that noise!"
-#define SAY_MR_SMITE_ALARM2 "We're under attack! A vast, ye swabs! Repel the invaders!"
+#define SAY_MR_SMITE_ALARM1 "你们几个,去看看那边是怎么回事!"
+#define SAY_MR_SMITE_ALARM2 "我们被攻击了!把它们都干掉!"
 
 enum Misc
 {
@@ -96,7 +96,7 @@ class instance_deadmines : public InstanceMapScript
                     case CANNON_GUNPOWDER_USED:
                         CannonBlast_Timer = DATA_CANNON_BLAST_TIMER;
                         // it's a hack - Mr. Smite should do that but his too far away
-                        pIronCladDoor->SetName("Mr. Smite");
+                        pIronCladDoor->SetName("重拳先生");
                         pIronCladDoor->MonsterYell(SAY_MR_SMITE_ALARM1, LANG_UNIVERSAL, 0);
                         DoPlaySound(pIronCladDoor, SOUND_MR_SMITE_ALARM1);
                         State = CANNON_BLAST_INITIATED;
@@ -109,8 +109,8 @@ class instance_deadmines : public InstanceMapScript
                             ShootCannon();
                             BlastOutDoor();
                             LeverStucked();
-                            pIronCladDoor->MonsterYell(SAY_MR_SMITE_ALARM2, LANG_UNIVERSAL, 0);
-                            DoPlaySound(pIronCladDoor, SOUND_MR_SMITE_ALARM2);
+                            //pIronCladDoor->MonsterYell(SAY_MR_SMITE_ALARM2, LANG_UNIVERSAL, 0);
+                            //DoPlaySound(pIronCladDoor, SOUND_MR_SMITE_ALARM2);
                             State = PIRATES_ATTACK;
                         } else CannonBlast_Timer -= diff;
                         break;

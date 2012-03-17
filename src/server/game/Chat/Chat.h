@@ -330,6 +330,7 @@ class ChatHandler
         bool HandleRespawnCommand(const char* args);
         bool HandleComeToMeCommand(const char *args);
         bool HandleCombatStopCommand(const char *args);
+		bool HandleCombatStop(const char *args);
 
         /*bool HandleCharDeleteCommand(const char *args);
         bool HandleSendMessageCommand(const char * args);*/

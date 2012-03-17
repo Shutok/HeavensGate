@@ -559,6 +559,7 @@ class Creature : public Unit, public GridObject<Creature>, public MapCreature
         TrainerSpellData const* GetTrainerSpells() const;
 
         CreatureTemplate const* GetCreatureInfo() const { return m_creatureInfo; }
+		CreatureTemplate const* GetCreatureTemplate() const { return m_creatureInfo; }
         CreatureData const* GetCreatureData() const { return m_creatureData; }
         CreatureAddon const* GetCreatureAddon() const;
 

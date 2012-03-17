@@ -690,6 +690,15 @@ bool ChatHandler::HandleLookupEventCommand(const char* args)
     return true;
 }
 
+bool ChatHandler::HandleCombatStop(const char* args)
+{
+    Player* target;
+    if (!extractPlayerTarget((char*)args, &target))
+        return false;
+    target->CombatStopWithPets(false);
+    return true;
+}
+
 bool ChatHandler::HandleCombatStopCommand(const char* args)
 {
     Player* target;
