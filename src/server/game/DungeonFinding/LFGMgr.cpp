@@ -1887,7 +1887,7 @@ else if (dungeon->ID == 44)
      z = 116.84;
      orientation = 3.2;
 }
-else if (dungeon->ID == 38)
+else if (dungeon->ID == 36)
 {
      mapid = at->target_mapId;
     x = -62.9658;
@@ -1895,7 +1895,7 @@ else if (dungeon->ID == 38)
      z = -3.46206;
      orientation = 3.14788;
 }
-else if (dungeon->ID == 36)
+else if (dungeon->ID == 38)
 {
      mapid = at->target_mapId;
     x = 255.249;
@@ -2037,15 +2037,15 @@ void LFGMgr::RewardDungeonDoneFor(const uint32 dungeonId, Player* player)
         sLog->outDebug(LOG_FILTER_LFG, "LFGMgr::RewardDungeonDoneFor: [" UI64FMTD "] dungeon %u is not random", guid, rDungeonId);
         return;
     }
-	if (player->GetMapId() == 43 || player->GetMapId() == 389 || player->GetMapId() == 36 || player->GetMapId() == 33 || player->GetMapId() == 48) {
+	if (player->GetMapId() == 43 || player->GetMapId() == 389 || player->GetMapId() == 36 || player->GetMapId() == 33 || player->GetMapId() == 10 || player->GetMapId() == 12 || player->GetMapId() == 48 || player->GetMapId() == 34) {
 		did = 20;
-	} else if (player->GetMapId() == 34 || player->GetMapId() == 14 || player->GetMapId() == 47 || player->GetMapId() == 189) {
+	} else if (player->GetMapId() == 90 || player->GetMapId() == 47 || player->GetMapId() == 189) {
 		did = 30;
 	} else if (player->GetMapId() == 129 || player->GetMapId() == 70 || player->GetMapId() == 209 || player->GetMapId() == 349) {
 		did = 40;
-	} else if (player->GetMapId() == 109 || player->GetMapId() == 230 || player->GetMapId() == 229 || player->GetMapId() == 429 || player->GetMapId() == 329) {
+	} else if (player->GetMapId() == 109 || player->GetMapId() == 230) {
 		did = 50;
-	} else if (player->GetMapId() == 543 || player->GetMapId() == 542 || player->GetMapId() == 540 || player->GetMapId() == 547) {
+	} else if (player->GetMapId() == 289 || player->GetMapId() == 229 || player->GetMapId() == 429 || player->GetMapId() == 329 || player->GetMapId() == 542 || player->GetMapId() == 543 || player->GetMapId() == 540 || player->GetMapId() == 547) {
 		did = 60;
 	} else if (player->GetMapId() == 546 || player->GetMapId() == 545 || player->GetMapId() == 557 || player->GetMapId() == 558 || player->GetMapId() == 556 || player->GetMapId() == 555 || player->GetMapId() == 560 || player->GetMapId() == 269 || player->GetMapId() == 554 || player->GetMapId() == 553 || player->GetMapId() == 552 || player->GetMapId() == 585) {
 		did = 70;

@@ -133,7 +133,7 @@ class boss_doomwalker : public CreatureScript
                             if (_inEnrage)
                                 me->RemoveAurasDueToSpell(SPELL_ENRAGE);
 
-                            DoCast(me, SPELL_EARTHQUAKE);
+                            //DoCast(me, SPELL_EARTHQUAKE);
                             _events.ScheduleEvent(EVENT_QUAKE, urand(30000, 55000));
                             break;
                         case EVENT_CHAIN:

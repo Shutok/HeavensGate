@@ -459,12 +459,15 @@ inline void KillRewarder::_InitGroupData()
                     // 2.4. _maxNotGrayMember - maximum level of alive group member within reward distance,
                     //      for whom victim is not gray;
                     uint32 grayLevel = Trinity::XP::GetGrayLevel(lvl);
-                    if (_victim->getLevel() > grayLevel && (!_maxNotGrayMember || _maxNotGrayMember->getLevel() < lvl))
+                    if (_victim->getLevel() > grayLevel && (!_maxNotGrayMember || _maxNotGrayMember->getLevel() < lvl)) {
                         _maxNotGrayMember = member;
+      }
                 }
         // 2.5. _isFullXP - flag identifying that for all group members victim is not gray,
         //      so 100% XP will be rewarded (50% otherwise).
         _isFullXP = _maxNotGrayMember && (_maxLevel == _maxNotGrayMember->getLevel());
+		//sLog->outString("_isFullXP: %u",_isFullXP);
+		//sLog->outString("_maxNotGrayMember: %u",_maxNotGrayMember);
     }
     else
         _count = 1;
@@ -500,7 +503,7 @@ inline void KillRewarder::_RewardXP(Player* player, float rate)
             _maxNotGrayMember->getLevel() >= player->getLevel()) 
             xp = _isFullXP ?
                 uint32(xp * rate) :             // Reward FULL XP if all group members are not gray.
-                //uint32(xp * rate / 2) + 1;      // Reward only HALF of XP if some of group members are gray.
+               //uint32(xp * rate / 2) + 1 :      // Reward only HALF of XP if some of group members are gray.
 				uint32(xp * rate) ;      // Reward FULL XP if all group members are not gray.
         else
             xp = 0;
@@ -590,8 +593,9 @@ void KillRewarder::_RewardGroup()
             // 3.1.3. Reward each group member (even dead or corpse) within reward distance.
             for (GroupReference* itr = _group->GetFirstMember(); itr != NULL; itr = itr->next())
                 if (Player* member = itr->getSource())
-                    if (member->IsAtGroupRewardDistance(_victim))
+					if (member->IsAtGroupRewardDistance(_victim)){
                         _RewardPlayer(member, isDungeon);
+					}
         }
     }
 }

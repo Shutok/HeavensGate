@@ -104,7 +104,7 @@ class boss_golemagg : public CreatureScript
                             events.ScheduleEvent(EVENT_PYROBLAST, 7000);
                             break;
                         case EVENT_EARTHQUAKE:
-                            DoCastVictim(SPELL_EARTHQUAKE);
+                            //DoCastVictim(SPELL_EARTHQUAKE);
                             events.ScheduleEvent(EVENT_EARTHQUAKE, 3000);
                             break;
                         default:

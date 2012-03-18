@@ -197,36 +197,9 @@ void WorldSession::HandleLfgPlayerLockInfoRequestOpcode(WorldPacket& /*recv_data
       LFGDungeonEntry const* dungeon = sLFGDungeonStore.LookupEntry(i);
         if (qRew)
         {
-            data << uint8(done);
-            data << uint32(qRew->GetRewOrReqMoney());
-            data << uint32(qRew->XPValue(GetPlayer()));
-            data << uint32(reward->reward[done].variableMoney);
-            data << uint32(reward->reward[done].variableXP);
-            data << uint8(qRew->GetRewItemsCount());
-            if (qRew->GetRewItemsCount())
-            {
-                ItemTemplate const* iProto = NULL;
-                for (uint8 i = 0; i < QUEST_REWARDS_COUNT; ++i)
-                {
-                    if (!qRew->RewardItemId[i])
-                        continue;
-
-                    iProto = sObjectMgr->GetItemTemplate(qRew->RewardItemId[i]);
-
-                    data << uint32(qRew->RewardItemId[i]);
-                    data << uint32(iProto ? iProto->DisplayInfoID : 0);
-                    data << uint32(qRew->RewardItemIdCount[i]);
-                }
-            }
         }
         else
         {
-            data << uint8(0);
-            data << uint32(0);
-            data << uint32(0);
-            data << uint32(0);
-            data << uint32(0);
-            data << uint8(0);
         }
     }
 }

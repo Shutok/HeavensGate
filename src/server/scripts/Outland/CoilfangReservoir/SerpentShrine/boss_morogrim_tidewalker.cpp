@@ -177,7 +177,7 @@ public:
             {
                 if (!Earthquake)
                 {
-                    DoCast(me->getVictim(), SPELL_EARTHQUAKE);
+                    //DoCast(me->getVictim(), SPELL_EARTHQUAKE);
                     Earthquake = true;
                     Earthquake_Timer = 10000;
                 }
