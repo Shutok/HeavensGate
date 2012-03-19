@@ -1817,7 +1817,7 @@ void LFGMgr::TeleportPlayer(Player* player, bool out, bool fromOpcode /*= false*
 if (dungeon->ID == 163)
 {
      mapid = at->target_mapId;
-    x = 1610.83;
+     x = 1610.83;
      y = -323.433;
      z = 18.6738;
      orientation = 6.28022;
@@ -1826,7 +1826,7 @@ if (dungeon->ID == 163)
 else if (dungeon->ID == 164)
 {
      mapid = at->target_mapId;
-    x = 855.683;
+     x = 855.683;
      y = 1321.5;
      z = 18.6709;
      orientation = 0.001747;
@@ -1834,7 +1834,7 @@ else if (dungeon->ID == 164)
 else if (dungeon->ID == 18)
 {
      mapid = at->target_mapId;
-    x = 1688.99;
+     x = 1688.99;
      y = 1053.48;
      z = 18.6775;
      orientation = 0.00117;
@@ -1842,7 +1842,7 @@ else if (dungeon->ID == 18)
 else if (dungeon->ID == 26)
 {
      mapid = at->target_mapId;
-    x = 1019.69;
+     x = 1019.69;
      y = -458.31;
      z = -43.43;
      orientation = 0.31;
@@ -1850,7 +1850,7 @@ else if (dungeon->ID == 26)
 else if (dungeon->ID == 34)
 {
      mapid = at->target_mapId;
-    x = 44.4499;
+     x = 44.4499;
      y = -154.822;
      z = -2.71201;
      orientation = 0;
@@ -1858,7 +1858,7 @@ else if (dungeon->ID == 34)
 else if (dungeon->ID == 40)
 {
      mapid = at->target_mapId;
-    x = 3395.09;
+     x = 3395.09;
      y = -3380.25;
      z = 142.702;
      orientation = 0.1;
@@ -1866,7 +1866,7 @@ else if (dungeon->ID == 40)
 else if (dungeon->ID == 274)
 {
      mapid = at->target_mapId;
-    x = 3593.15;
+     x = 3593.15;
      y = -3646.56;
      z = 138.5;
      orientation = 5.33;
@@ -1874,7 +1874,7 @@ else if (dungeon->ID == 274)
 else if (dungeon->ID == 32)
 {
      mapid = at->target_mapId;
-    x = 78.5083;
+     x = 78.5083;
      y = -225.044;
      z = 49.839;
      orientation = 5.1;
@@ -1882,7 +1882,7 @@ else if (dungeon->ID == 32)
 else if (dungeon->ID == 44)
 {
      mapid = at->target_mapId;
-    x = 174.74;
+     x = 174.74;
      y = -474.77;
      z = 116.84;
      orientation = 3.2;
@@ -1890,7 +1890,7 @@ else if (dungeon->ID == 44)
 else if (dungeon->ID == 36)
 {
      mapid = at->target_mapId;
-    x = -62.9658;
+     x = -62.9658;
      y = 159.867;
      z = -3.46206;
      orientation = 3.14788;
@@ -1898,7 +1898,7 @@ else if (dungeon->ID == 36)
 else if (dungeon->ID == 38)
 {
      mapid = at->target_mapId;
-    x = 255.249;
+     x = 255.249;
      y = -16.0561;
      z = -2.58737;
      orientation = 4.7;
@@ -1906,7 +1906,7 @@ else if (dungeon->ID == 38)
 else if (dungeon->ID == 30)
 {
      mapid = at->target_mapId;
-    x = 458.32;
+     x = 458.32;
      y = 26.52;
      z = -70.67;
      orientation = 4.95;
@@ -1914,7 +1914,7 @@ else if (dungeon->ID == 30)
 else if (dungeon->ID == 276)
 {
      mapid = at->target_mapId;
-    x = 750.912048;
+     x = 750.912048;
      y = -79.107010;
      z = -46.233376;
      orientation = 0.831439;
@@ -1922,7 +1922,7 @@ else if (dungeon->ID == 276)
 else if (dungeon->ID == 272)
 {
      mapid = at->target_mapId;
-    x = 752.91;
+     x = 752.91;
      y = -616.53;
      z = -33.11;
      orientation = 1.37;
@@ -1930,7 +1930,7 @@ else if (dungeon->ID == 272)
 else if (dungeon->ID == 273)
 {
      mapid = at->target_mapId;
-    x = 650.875000;
+     x = 650.875000;
      y = 66.642586;
      z = -86.733139;
      orientation = 2.842905;
@@ -1938,7 +1938,7 @@ else if (dungeon->ID == 273)
 else if (dungeon->ID == 14)
 {
      mapid = at->target_mapId;
-    x = -332.22;
+     x = -332.22;
      y = -2.28;
      z = -150.86;
      orientation = 2.77;
@@ -1947,7 +1947,7 @@ else if (dungeon->ID == 14)
 else if (dungeon->ID == 165)
 {
      mapid = at->target_mapId;
-    x = 255.346;
+     x = 255.346;
      y = -209.09;
      z = 18.6773;
      orientation = 6.26656;

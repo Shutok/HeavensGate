@@ -163,7 +163,7 @@ void WorldSession::HandleLfgPlayerLockInfoRequestOpcode(WorldPacket& /*recv_data
     {
 		LFGDungeonEntry const* dungeon = sLFGDungeonStore.LookupEntry(i);
         if (dungeon && dungeon->type == LFG_TYPE_RANDOM && dungeon->expansion <= expansion &&
-            dungeon->minlevel <= level && level <= dungeon->maxlevel)
+            dungeon->minlevel <= -1 && 9999 <= dungeon->maxlevel)
             randomDungeons.insert(dungeon->Entry());
     }
 
@@ -195,11 +195,29 @@ void WorldSession::HandleLfgPlayerLockInfoRequestOpcode(WorldPacket& /*recv_data
         for (uint32 i = 0; i < sLFGDungeonStore.GetNumRows(); ++i)
     {
       LFGDungeonEntry const* dungeon = sLFGDungeonStore.LookupEntry(i);
-        if (qRew)
+       if (qRew)
         {
-        }
-        else
-        {
+            data << uint8(done);
+            data << uint32(qRew->GetRewOrReqMoney());
+            data << uint32(qRew->XPValue(GetPlayer()));
+            data << uint32(reward->reward[done].variableMoney);
+            data << uint32(reward->reward[done].variableXP);
+            data << uint8(qRew->GetRewItemsCount());
+            if (qRew->GetRewItemsCount())
+            {
+                ItemTemplate const* iProto = NULL;
+                for (uint8 i = 0; i < QUEST_REWARDS_COUNT; ++i)
+                {
+                    if (!qRew->RewardItemId[i])
+                        continue;
+
+                    iProto = sObjectMgr->GetItemTemplate(qRew->RewardItemId[i]);
+
+                    data << uint32(qRew->RewardItemId[i]);
+                    data << uint32(iProto ? iProto->DisplayInfoID : 0);
+                    data << uint32(qRew->RewardItemIdCount[i]);
+                }
+            }
         }
     }
 }

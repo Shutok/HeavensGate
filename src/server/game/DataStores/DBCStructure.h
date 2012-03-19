@@ -1546,6 +1546,7 @@ struct SoundEntriesEntry
 #define MAX_EFFECT_MASK 7
 #define MAX_SPELL_REAGENTS 8
 
+//spell.dbcµÄº¬Òå
 struct SpellEntry
 {
     uint32    Id;                                           // 0        m_ID
