@@ -2452,7 +2452,11 @@ bool InstanceMap::AddPlayerToMap(Player* player)
 	}
 		if (player->getLevel() > did) {
 		} else {
+    if (player->HasAura(91084)){
+      } else {
+    
 		player->CastSpell(player, 91084, true);
+}
                                 //player->CastSpell(player, LFG_SPELL_DUNGEON_COOLDOWN, true);
 		}
 }
