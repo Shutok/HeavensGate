@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -147,7 +147,7 @@ class boss_saviana_ragefire : public CreatureScript
                         case EVENT_FLIGHT:
                         {
                             me->SetFlying(true);
-                            me->AddUnitMovementFlag(MOVEMENTFLAG_LEVITATING);
+                            me->RemoveUnitMovementFlag(MOVEMENTFLAG_LEVITATING);
                             me->SetReactState(REACT_PASSIVE);
                             me->GetMotionMaster()->MovePoint(POINT_FLIGHT, SavianaRagefireFlyPos);
                             events.ScheduleEvent(EVENT_FLIGHT, 50000);
@@ -203,7 +203,10 @@ class spell_saviana_conflagration_init : public SpellScriptLoader
 
             void FilterTargets(std::list<Unit*>& unitList)
             {
-                unitList.remove_if (ConflagrationTargetSelector());
+                if (unitList.empty())
+                    return;
+
+                unitList.remove_if(ConflagrationTargetSelector());
                 uint8 maxSize = uint8(GetCaster()->GetMap()->GetSpawnMode() & 1 ? 6 : 3);
                 if (unitList.size() > maxSize)
                     Trinity::RandomResizeList(unitList, maxSize);

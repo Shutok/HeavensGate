@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -154,9 +154,7 @@ class boss_baltharus_the_warborn : public CreatureScript
                 }
                 else
                 {
-                    if (me->HealthBelowPctDamaged(66, damage) && _cloneCount == 2)
-                        DoAction(ACTION_CLONE);
-                    else if (me->HealthBelowPctDamaged(33, damage) && _cloneCount == 1)
+                    if ((me->HealthBelowPctDamaged(66, damage) && _cloneCount == 2) || (me->HealthBelowPctDamaged(33, damage) && _cloneCount == 1))
                         DoAction(ACTION_CLONE);
                 }
 
