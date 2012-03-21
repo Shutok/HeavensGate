@@ -48,6 +48,7 @@
 #include "ScriptMgr.h"
 #include "MapManager.h"
 #include "InstanceScript.h"
+#include "LFGMgr.h"
 #include "GameObjectAI.h"
 #include "Group.h"
 #include "AccountMgr.h"
@@ -387,6 +388,19 @@ void WorldSession::HandleLogoutRequestOpcode(WorldPacket & /*recv_data*/)
     if (GetPlayer()->HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_RESTING) || GetPlayer()->isInFlight() ||
         GetSecurity() >= AccountTypes(sWorld->getIntConfig(CONFIG_INSTANT_LOGOUT)))
     {
+		Group* group = GetPlayer()->GetGroup();
+		if (group) {
+		if (group->isLFGGroup()) {
+		if (GetPlayer()->HasAura(91084)){
+				GetPlayer()->CastSpell(GetPlayer(), 71041, true);
+				GetPlayer()->RemoveAurasDueToSpell(91084);
+				sLFGMgr->TeleportPlayer(GetPlayer(), true, true);
+			} else {
+			sLFGMgr->TeleportPlayer(GetPlayer(), true, true);
+			GetPlayer()->RemoveAurasDueToSpell(91084);
+			}
+		}
+		}
         WorldPacket data(SMSG_LOGOUT_RESPONSE, 1+4);
         data << uint8(0);
         data << uint32(16777216);

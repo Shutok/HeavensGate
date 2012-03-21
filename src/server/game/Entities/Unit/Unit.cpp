@@ -16778,6 +16778,19 @@ void Unit::JumpTo(float speedXY, float speedZ, bool forward)
     }
 }
 
+bool Unit::SetDisableGravity(bool disable)
+{
+    if (disable == IsLevitating())
+        return false;
+    
+    if (disable)
+        AddUnitMovementFlag(MOVEMENTFLAG_LEVITATING);
+    else
+        RemoveUnitMovementFlag(MOVEMENTFLAG_LEVITATING);
+
+    return true;
+}
+
 void Unit::JumpTo(WorldObject* obj, float speedZ)
 {
     float x, y, z;

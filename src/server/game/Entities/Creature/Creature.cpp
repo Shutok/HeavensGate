@@ -347,6 +347,22 @@ bool Creature::InitEntry(uint32 Entry, uint32 /*team*/, const CreatureData* data
     return true;
 }
 
+bool Creature::SetDisableGravity(bool disable, bool packetOnly/*=false*/)
+{
+    //! It's possible only a packet is sent but moveflags are not updated
+    //! Need more research on this
+    if (!packetOnly && !Unit::SetDisableGravity(disable))
+        return false;
+
+    if (!movespline->Initialized())
+        return true;
+
+    WorldPacket data(disable ? SMSG_SPLINE_MOVE_GRAVITY_DISABLE : SMSG_SPLINE_MOVE_GRAVITY_ENABLE, 9);
+    data.append(GetPackGUID());
+    SendMessageToSet(&data, false);
+    return true;
+}
+
 bool Creature::UpdateEntry(uint32 Entry, uint32 team, const CreatureData* data)
 {
     if (!InitEntry(Entry, team, data))
