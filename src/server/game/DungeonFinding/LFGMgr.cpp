@@ -1817,153 +1817,94 @@ void LFGMgr::TeleportPlayer(Player* player, bool out, bool fromOpcode /*= false*
                 }
                 else
                 {
-                    //monasterio escarlata arsenal
-if (dungeon->ID == 163)
-{
-     mapid = at->target_mapId;
-     x = 1610.83;
-     y = -323.433;
-     z = 18.6738;
-     orientation = 6.28022;
-}
-//monasterio escarlata catedral
-else if (dungeon->ID == 164)
-{
-     mapid = at->target_mapId;
-     x = 855.683;
-     y = 1321.5;
-     z = 18.6709;
-     orientation = 0.001747;
-}
-else if (dungeon->ID == 18)
-{
-     mapid = at->target_mapId;
-     x = 1688.99;
-     y = 1053.48;
-     z = 18.6775;
-     orientation = 0.00117;
-}
-else if (dungeon->ID == 26)
-{
-     mapid = at->target_mapId;
-     x = 1019.69;
-     y = -458.31;
-     z = -43.43;
-     orientation = 0.31;
-}
-else if (dungeon->ID == 34)
-{
-     mapid = at->target_mapId;
-     x = 44.4499;
-     y = -154.822;
-     z = -2.71201;
-     orientation = 0;
-}
-else if (dungeon->ID == 40)
-{
-     mapid = at->target_mapId;
-     x = 3395.09;
-     y = -3380.25;
-     z = 142.702;
-     orientation = 0.1;
-}
-else if (dungeon->ID == 274)
-{
-     mapid = at->target_mapId;
-     x = 3593.15;
-     y = -3646.56;
-     z = 138.5;
-     orientation = 5.33;
-}
-else if (dungeon->ID == 32)
-{
-     mapid = at->target_mapId;
-     x = 78.5083;
-     y = -225.044;
-     z = 49.839;
-     orientation = 5.1;
-}
-else if (dungeon->ID == 44)
-{
-     mapid = at->target_mapId;
-     x = 174.74;
-     y = -474.77;
-     z = 116.84;
-     orientation = 3.2;
-}
-else if (dungeon->ID == 36)
-{
-     mapid = at->target_mapId;
-     x = -62.9658;
-     y = 159.867;
-     z = -3.46206;
-     orientation = 3.14788;
-}
-else if (dungeon->ID == 38)
-{
-     mapid = at->target_mapId;
-     x = 255.249;
-     y = -16.0561;
-     z = -2.58737;
-     orientation = 4.7;
-}
-else if (dungeon->ID == 30)
-{
-     mapid = at->target_mapId;
-     x = 458.32;
-     y = 26.52;
-     z = -70.67;
-     orientation = 4.95;
-}
-else if (dungeon->ID == 276)
-{
-     mapid = at->target_mapId;
-     x = 750.912048;
-     y = -79.107010;
-     z = -46.233376;
-     orientation = 0.831439;
-}
-else if (dungeon->ID == 272)
-{
-     mapid = at->target_mapId;
-     x = 752.91;
-     y = -616.53;
-     z = -33.11;
-     orientation = 1.37;
-}
-else if (dungeon->ID == 273)
-{
-     mapid = at->target_mapId;
-     x = 650.875000;
-     y = 66.642586;
-     z = -86.733139;
-     orientation = 2.842905;
-}
-else if (dungeon->ID == 14)
-{
-     mapid = at->target_mapId;
-     x = -332.22;
-     y = -2.28;
-     z = -150.86;
-     orientation = 2.77;
-}
-//monasterio escarlata libreria
-else if (dungeon->ID == 165)
-{
-     mapid = at->target_mapId;
-     x = 255.346;
-     y = -209.09;
-     z = 18.6773;
-     orientation = 6.26656;
-}
-else
-{
-     mapid = at->target_mapId;
-     x = at->target_X;
-     y = at->target_Y;
-     z = at->target_Z;
-     orientation = at->target_Orientation;
-}
+                    mapid = at->target_mapId;
+                    x = at->target_X;
+                    y = at->target_Y;
+                    z = at->target_Z;
+                    orientation = at->target_Orientation;
+                }
+
+                // FIXME
+                switch (dungeon->ID)
+                {
+                    // world events
+                    case 285: // The Headless Horseman
+                        mapid = 189;
+                        x = 1793.837f;
+                        y = 1347.15f;
+                        z = 20.38f;
+                        orientation = 3.17f;
+                        break;
+                    case 286: // The Frost Lord Ahune
+                        break;
+                    case 287: // Coren Direbrew
+                        mapid = 230;
+                        x = 907.299f;
+                        y = -156.689f;
+                        z = -47.75f;
+                        orientation = 2.108f;
+                        break;
+                    case 288: // The Crown Chemical Co.
+                        mapid = 230;
+                        x = 907.299f;
+                        y = -156.689f;
+                        z = -47.75f;
+                        orientation = 2.108f;
+                        break;
+                    // normal dungeons
+                    case 14: // Gnomeregan
+                        mapid = 90;
+                        x = -332.22f;
+                        y = -2.28f;
+                        z = -150.86f;
+                        orientation = 2.77f;
+                        break;
+                    case 22: // Uldaman
+                        mapid = 70;
+                        x = -226.8f;
+                        y = 49.09f;
+                        z = -46.03f;
+                        orientation = 1.39f;
+                        break;
+                    case 30: // Blackrock Depths - Prison
+                    case 276: // Blackrock Depths - Upper City
+                        mapid = 230;
+                        x = 458.32f;
+                        y = 26.52f;
+                        z = -70.67f;
+                        orientation = 4.95f;
+                        break;
+                    case 163: // Scarlet Monastery - Armory
+                        mapid = 189;
+                        x = 1610.83f;
+                        y = -323.433f;
+                        z = 18.6738f;
+                        orientation = 6.28022f;
+                        break;
+                    case 164: // Scarlet Monastery - Cathedral
+                        mapid = 189;
+                        x = 855.683f;
+                        y = 1321.5f;
+                        z = 18.6709f;
+                        orientation = 0.001747f;
+                        break;
+                    case 165: // Scarlet Monastery - Library
+                        mapid = 189;
+                        x = 255.346f;
+                        y = -209.09f;
+                        z = 18.6773f;
+                        orientation = 6.26656f;
+                        break;
+                    case 216: // Gundrak
+                    case 217: // Gundrak (Heroic)
+                        mapid = 604;
+                        x = 1894.58f;
+                        y = 652.713f;
+                        z = 176.666f;
+                        orientation = 4.078f;
+                        break;
+                    default:
+                        break;
                 }
             }
 
