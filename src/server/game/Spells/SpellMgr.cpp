@@ -2888,16 +2888,13 @@ void SpellMgr::LoadSpellCustomAttr()
             case 58956: //Fire Breath - Sartharion
             case 57874: //Twilight Shift Damage - Sartharion
             case 64590: // Shield Breaker
-            case 62626: // Shield Breaker
             case 64342: // Shield Breaker
             case 64686: // Shield Breaker
             case 68321: // Charge
             case 63010: // Charge
             case 63003: // Charge
-            case 62544: // Trust
             case 64588: // Trust
             case 66479: // Trust
-            case 68505: // Trust
                 spellInfo->AttributesCu |= SPELL_ATTR0_CU_DIRECT_DAMAGE; // spellInfo->AttributesEx4 |= SPELL_ATTR4_FIXED_DAMAGE;
                 spellInfo->AttributesCu |= SPELL_ATTR0_CU_IGNORE_ARMOR;
                 break;
@@ -2909,6 +2906,10 @@ void SpellMgr::LoadSpellCustomAttr()
             case 53454: // Impale
             case 59446: // Impale
             case 62383: // Shatter
+            case 68505: // Thrust
+            case 62544: // Thrust
+            case 62626: // Shield Breaker
+            case 68284: // Charge
             case 64777: // Machine Gun
             case 65239: // Machine Gun
             case 65919: // Impale
@@ -3401,6 +3402,27 @@ void SpellMgr::LoadDbcDataCorrections()
                 break;
             // ENDOF ULDUAR SPELLS
             //
+            // TRIAL OF THE CHAMPION SPELLS
+            case 68284: // ToC5 Charge
+                spellInfo->Effect[1] = SPELL_EFFECT_SCHOOL_DAMAGE;
+                spellInfo->EffectBasePoints[1] = 20000;
+                spellInfo->EffectImplicitTargetA[1] = TARGET_UNIT_TARGET_ENEMY;
+                break;
+            case 68282: // ToC5 Charge
+                spellInfo->Effect[1] = 0;
+                break;
+            case 67705: // Raise Arelas Birhgtstar
+            case 67715: // Raise Jaeren Sunworn
+                spellInfo->AttributesEx2 |= SPELL_ATTR2_CAN_TARGET_DEAD;
+                break;
+            case 67782: // Desecration
+                spellInfo->rangeIndex = EFFECT_RADIUS_2_YARDS;
+                spellInfo->EffectImplicitTargetA[0] = TARGET_UNIT_SRC_AREA_ENEMY;
+                break;
+            case 66545:
+                spellInfo->EffectImplicitTargetB[0] = TARGET_UNIT_CASTER;
+                break;
+            // END OF TRIAL OF THE CHAMPION SPELLS
             // TRIAL OF THE CRUSADER SPELLS
             //
             case 66258: // Infernal Eruption (10N)
