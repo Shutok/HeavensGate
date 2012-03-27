@@ -35,33 +35,83 @@
 template<>
 void RandomMovementGenerator<Creature>::_setRandomLocation(Creature &creature)
 {
-    float dist = 0.f;
-    float X, Y, Z, ori;
-    creature.GetHomePosition(X, Y, Z, ori);
+    float respX, respY, respZ, respO, currZ, destX, destY, destZ, travelDistZ;
+    creature.GetHomePosition(respX, respY, respZ, respO);
+    currZ = creature.GetPositionZ();
+    Map const* map = creature.GetBaseMap();
 
-    const float angle = rand_norm_f() * (M_PI_F*2.0f);
-    const float range = rand_norm_f() * dist;
+    // For 2D/3D system selection
+    //bool is_land_ok  = creature.CanWalk();                // not used?
+    //bool is_water_ok = creature.CanSwim();                // not used?
+    bool is_air_ok = creature.canFly();
 
-    float destX = X + range * cos(angle);
-    float destY = Y + range * sin(angle);
-    float destZ = creature.GetPositionZ();
-    creature.UpdateAllowedPositionZ(X, Y, Z);
+    const float angle = float(rand_norm()) * static_cast<float>(M_PI*2.0f);
+    const float range = float(rand_norm()) * wander_distance;
+    const float distanceX = range * cos(angle);
+    const float distanceY = range * sin(angle);
 
-    creature.AddUnitState(UNIT_STAT_ROAMING_MOVE);
+    destX = respX + distanceX;
+    destY = respY + distanceY;
 
-    Movement::MoveSplineInit init(creature);
-    init.MoveTo(X, Y, Z, true);
-    init.SetWalk(true);
-    init.Launch();
+    // prevent invalid coordinates generation
+    Trinity::NormalizeMapCoord(destX);
+    Trinity::NormalizeMapCoord(destY);
 
-    if (creature.canFly())
+    travelDistZ = distanceX*distanceX + distanceY*distanceY;
+
+    if (is_air_ok)                                          // 3D system above ground and above water (flying mode)
+    {
+        // Limit height change
+        const float distanceZ = float(rand_norm()) * sqrtf(travelDistZ)/2.0f;
+        destZ = respZ + distanceZ;
+        float levelZ = map->GetWaterOrGroundLevel(destX, destY, destZ-2.0f);
+
+        // Problem here, we must fly above the ground and water, not under. Let's try on next tick
+        if (levelZ >= destZ)
+            return;
+    }
+    //else if (is_water_ok)                                 // 3D system under water and above ground (swimming mode)
+    else                                                    // 2D only
+    {
+        // 10.0 is the max that vmap high can check (MAX_CAN_FALL_DISTANCE)
+        travelDistZ = travelDistZ >= 100.0f ? 10.0f : sqrtf(travelDistZ);
+
+        // The fastest way to get an accurate result 90% of the time.
+        // Better result can be obtained like 99% accuracy with a ray light, but the cost is too high and the code is too long.
+        destZ = map->GetHeight(destX, destY, respZ+travelDistZ-2.0f, false);
+
+        if (fabs(destZ - respZ) > travelDistZ)              // Map check
+        {
+            // Vmap Horizontal or above
+            destZ = map->GetHeight(destX, destY, respZ - 2.0f, true);
+
+            if (fabs(destZ - respZ) > travelDistZ)
+            {
+                // Vmap Higher
+                destZ = map->GetHeight(destX, destY, respZ+travelDistZ-2.0f, true);
+
+                // let's forget this bad coords where a z cannot be find and retry at next tick
+                if (fabs(destZ - respZ) > travelDistZ)
+                    return;
+            }
+        }
+    }
+
+    if (is_air_ok)
         i_nextMoveTime.Reset(0);
     else
         i_nextMoveTime.Reset(urand(500, 10000));
 
+    creature.AddUnitState(UNIT_STAT_ROAMING_MOVE);
+
+    Movement::MoveSplineInit init(creature);
+    init.MoveTo(destX, destY, destZ);
+    init.SetWalk(true);
+    init.Launch();
+
     //Call for creature group update
     if (creature.GetFormation() && creature.GetFormation()->getLeader() == &creature)
-        creature.GetFormation()->LeaderMoveTo(X, Y, Z);
+        creature.GetFormation()->LeaderMoveTo(destX, destY, destZ);
 }
 
 template<>
