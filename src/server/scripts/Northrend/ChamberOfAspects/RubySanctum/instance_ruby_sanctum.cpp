@@ -1,19 +1,19 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the
- * Free Software Foundation; either version 2 of the License, or (at your
- * option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
- */
+* Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+*
+* This program is free software; you can redistribute it and/or modify it
+* under the terms of the GNU General Public License as published by the
+* Free Software Foundation; either version 2 of the License, or (at your
+* option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT
+* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+* FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+* more details.
+*
+* You should have received a copy of the GNU General Public License along
+* with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include "ScriptPCH.h"
 #include "ruby_sanctum.h"
@@ -21,8 +21,8 @@
 
 DoorData const doorData[] =
 {
-    {GO_FIRE_FIELD,     DATA_BALTHARUS_THE_WARBORN, DOOR_TYPE_PASSAGE,  BOUNDARY_E   },
-    {0,                 0,                          DOOR_TYPE_ROOM,     BOUNDARY_NONE},
+    {GO_FIRE_FIELD, DATA_BALTHARUS_THE_WARBORN, DOOR_TYPE_PASSAGE, BOUNDARY_E },
+    {0, 0, DOOR_TYPE_ROOM, BOUNDARY_NONE},
 };
 
 class instance_ruby_sanctum : public InstanceMapScript
@@ -36,21 +36,19 @@ class instance_ruby_sanctum : public InstanceMapScript
             {
                 SetBossNumber(EncounterCount);
                 LoadDoorData(doorData);
-                BaltharusTheWarbornGUID  = 0;
-                GeneralZarithrianGUID    = 0;
-                SavianaRagefireGUID      = 0;
-                HalionGUID               = 0;
-                TwilightHalionGUID       = 0;
-                OrbCarrierGUID           = 0;
-                OrbRotationFocusGUID     = 0;
-                HalionControllerGUID     = 0;
-                CombatStalkerGUID        = 0;
+                BaltharusTheWarbornGUID = 0;
+                GeneralZarithrianGUID = 0;
+                SavianaRagefireGUID = 0;
+                HalionGUID = 0;
+                TwilightHalionGUID = 0;
+                OrbCarrierGUID = 0;
+                OrbRotationFocusGUID = 0;
+                HalionControllerGUID = 0;
                 CrystalChannelTargetGUID = 0;
-                XerestraszaGUID          = 0;
-                BaltharusSharedHealth    = 0;
-                FlameWallsGUID           = 0;
-                FlameRingGUID            = 0;
-
+                XerestraszaGUID = 0;
+                BaltharusSharedHealth = 0;
+                FlameWallsGUID = 0;
+                FlameRingGUID = 0;
                 memset(ZarithrianSpawnStalkerGUID, 0, 2 * sizeof(uint64));
                 memset(BurningTreeGUID, 0, 4 * sizeof(uint64));
             }
@@ -82,9 +80,6 @@ class instance_ruby_sanctum : public InstanceMapScript
                         break;
                     case NPC_ORB_ROTATION_FOCUS:
                         OrbRotationFocusGUID = creature->GetGUID();
-                        break;
-                    case NPC_COMBAT_STALKER:
-                        CombatStalkerGUID = creature->GetGUID();
                         break;
                     case NPC_BALTHARUS_TARGET:
                         CrystalChannelTargetGUID = creature->GetGUID();
@@ -194,8 +189,6 @@ class instance_ruby_sanctum : public InstanceMapScript
                         return FlameRingGUID;
                     case DATA_TWILIGHT_FLAME_RING:
                         return TwilightFlameRingGUID;
-                    case DATA_COMBAT_STALKER:
-                        return CombatStalkerGUID;
                     default:
                         break;
                 }
@@ -243,9 +236,6 @@ class instance_ruby_sanctum : public InstanceMapScript
                             break;
 
                         DoUpdateWorldState(WORLDSTATE_CORPOREALITY_TOGGLE, 0);
-                        DoUpdateWorldState(WORLDSTATE_CORPOREALITY_TWILIGHT, 0);
-                        DoUpdateWorldState(WORLDSTATE_CORPOREALITY_MATERIAL, 0);
-
                         HandleGameObject(FlameRingGUID, true);
                         HandleGameObject(TwilightFlameRingGUID, true);
                         break;
@@ -259,18 +249,32 @@ class instance_ruby_sanctum : public InstanceMapScript
 
             void SetData(uint32 type, uint32 data)
             {
-                if (type != DATA_BALTHARUS_SHARED_HEALTH)
-                    return;
-
-                BaltharusSharedHealth = data;
+                switch (type)
+                {
+                    case DATA_BALTHARUS_SHARED_HEALTH:
+                        BaltharusSharedHealth = data;
+                        break;
+                    case DATA_HALION_SHARED_HEALTH:
+                        HalionSharedHealth = data;
+                        break;
+                    default:
+                        break;
+                }
             }
 
             uint32 GetData(uint32 type)
             {
-                if (type != DATA_BALTHARUS_SHARED_HEALTH)
-                    return 0;
+                switch (type)
+                {
+                    case DATA_BALTHARUS_SHARED_HEALTH:
+                        return BaltharusSharedHealth;
+                    case DATA_HALION_SHARED_HEALTH:
+                        return HalionSharedHealth;
+                    default:
+                        break;
+                }
 
-                return BaltharusSharedHealth;
+                return 0;
             }
 
             std::string GetSaveData()
@@ -340,9 +344,9 @@ class instance_ruby_sanctum : public InstanceMapScript
             uint64 BurningTreeGUID[4];
             uint64 FlameRingGUID;
             uint64 TwilightFlameRingGUID;
-            uint64 CombatStalkerGUID;
 
             uint32 BaltharusSharedHealth;
+            uint32 HalionSharedHealth;
         };
 
         InstanceScript* GetInstanceScript(InstanceMap* map) const
