@@ -99,10 +99,6 @@ enum Creatures
     NPC_FREYA_RETICLE              = 33366,
     NPC_WRITHING_LASHER            = 33387,
     NPC_WARD_OF_LIFE               = 34275,
-    NPC_LOREKEEPER                 = 33686, // Hard mode starter
-    NPC_BRANN_BRONZBEARD           = 33579,
-    NPC_DELORAH                    = 33701,
-    NPC_ULDUAR_GAUNTLET_GENERATOR  = 33571  // Trigger tied to towers
 };
 
 enum Events
@@ -168,7 +164,6 @@ enum Actions
 {
     ACTION_START_ENCOUNTER           = 10,
     ACTION_OVERLOAD_CIRCUIT          = 11,
-    ACTION_ACTIVATE_HARD_MODE        = 12
 };
 
 Position const Misc[]=
